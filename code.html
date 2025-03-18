@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background: url('bg1.jpg') no-repeat center center/cover;
+            flex-direction: column;
+            font-family: 'Dancing Script', cursive;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+        h1 {
+            background: rgba(255, 182, 193, 0.9);
+            border-radius: 30px;
+            padding: 20px 40px;
+            font-size: 4rem;
+            box-shadow: 0 8px 20px rgba(255, 182, 193, 0.8);
+        }
+        .page {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        .flowers, .video-container {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 1.5s ease-in-out;
+            flex-wrap: wrap;
+        }
+        .flower-img, .video-container video {
+            width: 200px;
+            height: 200px;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
+        }
+        .big-photo {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 40px;
+            border-radius: 20px;
+        }
+        .nav-buttons {
+            margin-top: 30px;
+        }
+        button {
+            background-color: #ff69b4;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255, 105, 180, 0.8);
+            transition: transform 0.2s ease;
+        }
+        button:hover {
+            background-color: #ff1493;
+            transform: scale(1.1);
+        }
+        .audio-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .audio-buttons button {
+            background-color: transparent;
+            color: #fff;
+            font-size: 1.5rem;
+            border: none;
+            cursor: pointer;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .flower-img { width: 150px; height: 150px; }
+            .big-photo { max-width: 100%; }
+            button { padding: 8px 20px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <audio id="backgroundAudio" loop>
+        <source src="ns.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="audio-buttons">
+        <button onclick="playAudio()">&#9658; Play</button>
+        <button onclick="pauseAudio()">&#10074;&#10074; Pause</button>
+    </div>
+
+    <div class="overlay"></div>
+    <div id="page1" class="page active">
+        <h1>Happy Birthday Babe! 🎉💕</h1>
+        <div class="nav-buttons">
+            <button onclick="nextPage(2)">Next</button>
+        </div>
+    </div>
+
+    <div id="page2" class="page">
+        <h1>My motuu 🌹💐</h1>
+        <div class="video-container">
+            <video src="2v.mp4" controls muted></video>
+        </div>
+        <div class="nav-buttons">
+            <button onclick="nextPage(1)">Back</button>
+            <button onclick="nextPage(3)">Next</button>
+        </div>
+    </div>
+
+    <div id="page3" class="page">
+        <h1>Just For You ❤</h1>
+        <img src="3p.jpg" alt="Big Photo" class="big-photo">
+        <div class="nav-buttons">
+            <button onclick="nextPage(2)">Back</button>
+            <button onclick="nextPage(4)">Next</button>
+        </div>
+    </div>
+
+    <div id="page4" class="page">
+        <p>I am so blessed to have you in my life. You make every day brighter, and I can't imagine my world without you. Thank you for being the most wonderful part of my life. 💫💕 Meeting you everyday is the most amazing part of my day , eating momos together , going to 7th heaven , eating chloe bature together , life cant be more perfect . Here's to many more amazing memories together. Love you always! ❤</p>
+        <div class="nav-buttons">
+            <button onclick="nextPage(3)">Back</button>
+        </div>
+    </div>
+
+    <script>
+        let currentTime = 0;
+
+        function playAudio() {
+            var audio = document.getElementById('backgroundAudio');
+            audio.currentTime = currentTime;
+            audio.play().catch(e => console.error('Audio play error:', e));
+        }
+
+        function pauseAudio() {
+            var audio = document.getElementById('backgroundAudio');
+            currentTime = audio.currentTime;
+            audio.pause();
+        }
+
+        function nextPage(pageNumber) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(`page${pageNumber}`).classList.add('active');
+        }
+    </script>
+</body>
+</html>
